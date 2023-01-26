@@ -52,6 +52,13 @@ public class UserController {
     public  ResponseEntity<Object> deleteUser(@PathVariable Long id) {
         return  userClient.deleteUser(id);
     }
+
+
+
+
+
+
+
 }
 
 
