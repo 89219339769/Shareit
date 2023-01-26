@@ -34,5 +34,26 @@ public class UserController {
     public  ResponseEntity<Object>postUser(@RequestBody UserDto user){
         return userClient.postUser(user);
     }
+
+    @GetMapping("/{id}")
+    public  ResponseEntity<Object> getUser(@PathVariable Long id) {
+        return userClient.getUser(id);
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 }
 

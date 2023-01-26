@@ -31,14 +31,25 @@ public class UserClient extends BaseClient {
         );
     }
 
-    @Autowired
-    public ResponseEntity<Object> getUsers() {
-        return get("");
-    }
+
+
 
     public ResponseEntity<Object> postUser( UserDto user) {
         return post("", user);
     }
+
+
+
+    public ResponseEntity<Object> getUsers() {
+        return get("");
+    }
+
+    public ResponseEntity<Object> getUser(Long userId) {
+        return get("/" + userId);
+    }
+
+
+
 
 
 }
