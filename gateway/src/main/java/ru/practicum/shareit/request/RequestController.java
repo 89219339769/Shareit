@@ -3,6 +3,8 @@ package ru.practicum.shareit.request;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.exceptions.BadRequestException;
+import ru.practicum.shareit.exceptions.NotFoundException;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
 @RequestMapping("/requests")
 public class RequestController {
 
-   private final RequestClient requestClient;
+    private final RequestClient requestClient;
 
 
     @PostMapping
@@ -24,23 +26,29 @@ public class RequestController {
     }
 
 
-//    @GetMapping("/all")
-//    public List<RequestDto> getAllWithItems(@RequestHeader("X-Sharer-User-Id") Long userId,
-//                                            @RequestParam(defaultValue = "0") int from,
-//                                            @RequestParam(defaultValue = "10") int size) {
-//        return requestService.getAllRequestsWithItems(userId, from, size);
-//    }
-//
-//    @GetMapping()
-//    public List<RequestDto> getAll(@RequestHeader("X-Sharer-User-Id") Long userId) {
-//        return requestService.getAllRequestsByUser(userId);
-//    }
-//
-//
-//    @GetMapping("/{requestId}")
-//    public RequestDto getRequestById(@RequestHeader("X-Sharer-User-Id") Long userId,
-//                                     @PathVariable Long requestId) {
-//
-//        return requestService.getRequestById(userId, requestId);
-//    }
+    @GetMapping("/all")
+    public ResponseEntity<Object> getAllWithItems(@RequestHeader("X-Sharer-User-Id") Long userId,
+                                                  @RequestParam(defaultValue = "0") int from,
+                                                  @RequestParam(defaultValue = "10") int size) {
+        return requestClient.getAllRequestsWithItems(userId, from, size);
+    }
+
+
+    @GetMapping()
+    public ResponseEntity<Object> getAll(@RequestHeader("X-Sharer-User-Id") Long userId) {
+        return requestClient.getAllRequestsByUser(userId);
+    }
+
+
+    @GetMapping("/{requestId}")
+    public ResponseEntity<Object> getRequestById(@RequestHeader("X-Sharer-User-Id") Long userId,
+                                                 @PathVariable Long requestId) {
+        try {
+         requestClient.getRequestById(userId, requestId);
+        } catch (NotFoundException e) {
+            System.out.println("Невозможно создать запрос - " +
+                    "не найден пользователь с id: " + userId);
+        }
+        return requestClient.getRequestById(userId, requestId);
+    }
 }

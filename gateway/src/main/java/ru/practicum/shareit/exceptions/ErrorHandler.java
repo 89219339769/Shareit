@@ -14,4 +14,10 @@ public class ErrorHandler {
     public ErrorResponse objectWrongEnterExeption(final BadRequestException e) {
         return new ErrorResponse(e.getMessage());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse objectWrongEnterExeption(final NotFoundException e) {
+        return new ErrorResponse(e.getMessage());
+    }
 }
