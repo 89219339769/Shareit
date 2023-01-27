@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.UserClient;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/items")
@@ -36,7 +37,7 @@ public class ItemController {
     public ResponseEntity<Object> put(@PathVariable long itemId,
                     @RequestHeader("X-Sharer-User-Id") Long userId,
                     @RequestBody Item item) {
-        return itemClient.updateItem(itemId, userId, item);
+        return itemClient.updateItem(userId,  itemId, item);
     }
 
 
@@ -47,7 +48,11 @@ public class ItemController {
     }
 
 
+    @GetMapping("search")
+    public ResponseEntity<Object> findItemsBySearch(@RequestParam(name = "text") String query) {
 
+        return itemClient.findItemByNameOrDescription(query);
+    }
 
 
 }

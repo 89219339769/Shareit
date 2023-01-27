@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
 
+import java.util.Map;
+
 @Service
 public class ItemClient extends BaseClient {
 
@@ -47,4 +49,22 @@ public class ItemClient extends BaseClient {
 
         return get("", userId);
     }
+
+//    public ResponseEntity<Object> findItemByNameOrDescription(String query) {
+//
+//        return get("/search?text=query");
+//
+//
+//    }
+
+    public ResponseEntity<Object> findItemByNameOrDescription (String text) {
+        Map<String, Object> parameters = Map.of(
+                "text", text
+        );
+        return get("/search?text={text}", null, parameters);
+    }
+
+
+
+
 }
