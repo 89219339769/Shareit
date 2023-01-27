@@ -3,11 +3,9 @@ package ru.practicum.shareit.request;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.exceptions.BadRequestException;
-import ru.practicum.shareit.exceptions.NotFoundException;
 
 import javax.validation.Valid;
-import java.util.List;
+
 
 
 @RestController
@@ -44,7 +42,7 @@ public class RequestController {
     @GetMapping("/{requestId}")
     public ResponseEntity<Object> getRequestById(@RequestHeader("X-Sharer-User-Id") Long userId,
                                                  @PathVariable Long requestId) {
-         requestClient.getRequestById(userId, requestId);
+        requestClient.getRequestById(userId, requestId);
         return requestClient.getRequestById(userId, requestId);
     }
 }

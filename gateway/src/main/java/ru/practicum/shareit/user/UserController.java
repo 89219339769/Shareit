@@ -7,13 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.booking.dto.BookItemRequestDto;
-import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.user.userDto.UserDto;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+
 
 @Controller
 @RequestMapping(path = "/users")
@@ -31,34 +28,28 @@ public class UserController {
     }
 
     @PostMapping
-    public  ResponseEntity<Object>postUser(@RequestBody @Valid UserDto user){
+    public ResponseEntity<Object> postUser(@RequestBody @Valid UserDto user) {
 
         return userClient.postUser(user);
     }
 
     @GetMapping("/{id}")
-    public  ResponseEntity<Object> getUser(@PathVariable Long id) {
+    public ResponseEntity<Object> getUser(@PathVariable Long id) {
         return userClient.getUser(id);
 
     }
 
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object>updateUser(@PathVariable long id, @RequestBody UserDto user) {
+    public ResponseEntity<Object> updateUser(@PathVariable long id, @RequestBody UserDto user) {
         return userClient.updateUser(id, user);
     }
 
 
     @DeleteMapping("/{id}")
-    public  ResponseEntity<Object> deleteUser(@PathVariable Long id) {
-        return  userClient.deleteUser(id);
+    public ResponseEntity<Object> deleteUser(@PathVariable Long id) {
+        return userClient.deleteUser(id);
     }
-
-
-
-
-
-
 
 }
 
