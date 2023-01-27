@@ -13,6 +13,7 @@ import ru.practicum.shareit.booking.dto.BookingState;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/bookings")
@@ -45,4 +46,25 @@ public class BookingController {
 			@PathVariable Long bookingId) {
 		log.info("Get booking {}, userId={}", bookingId, userId);
 		return bookingClient.getBooking(userId, bookingId);
-	}}
+	}
+
+
+	@PatchMapping("/{bookingId}")
+	public ResponseEntity<Object> approve(@PathVariable Long bookingId, @RequestHeader("X-Sharer-User-Id") Long userId,
+								   @RequestParam Boolean approved) {
+		return bookingClient.approve(userId, bookingId, approved);
+	}
+
+
+	@GetMapping("/owner")
+	public ResponseEntity<Object> getAllByOwner(@RequestHeader("X-Sharer-User-Id") Long userId,
+									   @RequestParam(defaultValue = "ALL") String state,
+									   @RequestParam(defaultValue = "0") int from,
+									   @RequestParam(defaultValue = "10") int size) {
+		return  bookingClient.getAllBokingsByOwnerSortByState(userId, state, from, size);
+	}
+
+
+
+
+}
