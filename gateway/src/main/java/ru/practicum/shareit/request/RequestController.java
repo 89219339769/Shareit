@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.exceptions.BadRequestException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -19,7 +20,7 @@ public class RequestController {
 
     @PostMapping
     public ResponseEntity<Object> add(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                      @RequestBody Request request) {
+                                      @RequestBody @Valid Request request) {
 
 
         return requestClient.addRequest(userId, request);
@@ -43,12 +44,7 @@ public class RequestController {
     @GetMapping("/{requestId}")
     public ResponseEntity<Object> getRequestById(@RequestHeader("X-Sharer-User-Id") Long userId,
                                                  @PathVariable Long requestId) {
-        try {
          requestClient.getRequestById(userId, requestId);
-        } catch (NotFoundException e) {
-            System.out.println("Невозможно создать запрос - " +
-                    "не найден пользователь с id: " + userId);
-        }
         return requestClient.getRequestById(userId, requestId);
     }
 }

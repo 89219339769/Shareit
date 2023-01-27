@@ -31,7 +31,8 @@ public class UserController {
     }
 
     @PostMapping
-    public  ResponseEntity<Object>postUser(@RequestBody UserDto user){
+    public  ResponseEntity<Object>postUser(@RequestBody @Valid UserDto user){
+
         return userClient.postUser(user);
     }
 

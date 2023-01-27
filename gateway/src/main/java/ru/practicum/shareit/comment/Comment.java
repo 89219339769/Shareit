@@ -5,6 +5,7 @@ import ru.practicum.shareit.item.Item;
 import ru.practicum.shareit.user.userDto.UserDto;
 
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 
@@ -18,7 +19,7 @@ public class Comment {
 
     private Long id;
 
-
+    @NotBlank
     private String text;
 
 

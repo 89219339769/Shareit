@@ -7,11 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.comment.Comment;
-import ru.practicum.shareit.comment.CommentDtoOut;
-import ru.practicum.shareit.user.UserClient;
 
-import java.util.Collection;
-import java.util.List;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping(path = "/items")
@@ -23,7 +20,7 @@ public class ItemController {
     private final ItemClient itemClient;
     @PostMapping
      public ResponseEntity<Object> add(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                             @RequestBody Item item) {
+                                             @RequestBody @Valid Item item) {
         return itemClient.createItem(userId, item);
     }
 
@@ -60,11 +57,7 @@ public class ItemController {
     @PostMapping("/{itemId}/comment")
     public ResponseEntity<Object> add(@RequestHeader("X-Sharer-User-Id") Long userId,
                              @PathVariable Long itemId,
-                             @RequestBody Comment comment) {
+                             @RequestBody @Valid Comment comment) {
         return itemClient.addComment(userId, itemId, comment);
     }
-
-
-
-
 }
