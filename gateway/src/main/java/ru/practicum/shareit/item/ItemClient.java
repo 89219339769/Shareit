@@ -8,6 +8,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
+import ru.practicum.shareit.comment.Comment;
 
 import java.util.Map;
 
@@ -27,7 +28,8 @@ public class ItemClient extends BaseClient {
     }
 
         public ResponseEntity<Object> createItem(long userId, Item item) {
-            return post("", userId, item);
+
+        return post("", userId, item);
         }
 
     public ResponseEntity<Object> findItemById(Long id, Long userId) {
@@ -60,6 +62,11 @@ public class ItemClient extends BaseClient {
     }
 
 
+    public ResponseEntity<Object> addComment(Long userId, Long itemId, Comment comment) {
 
 
+        return post("/" + itemId + "/comment", userId, comment );
+
+
+    }
 }
