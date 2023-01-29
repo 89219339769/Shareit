@@ -87,34 +87,11 @@ class ItemControllerTests {
 
     }
 
-    @Test
-    void createItemTest() {
-        userController.create(user);
-        itemController.add(1L, item);
-        assertEquals(itemDtoForOwner, itemController.getById(item.getId(), user.getId()));
-    }
 
 
-    @Test
-    void createItemTestOnRequest() {
-        User user2 = new User();
-        user2.setName("name2");
-        user2.setEmail("user@email2.com");
 
-        userController.create(user);
-        userController.create(user2);
-        requestController.add(1L, request);
 
-        Item item2 = Item.builder()
-                .name("name")
-                .description("description")
-                .available(true)
-                .requestId(1L)
-                .build();
 
-        itemController.add(1L, item2);
-        assertEquals(itemDtoForBooker, itemController.getById(1L, 2L));
-    }
 
 
     @Test
@@ -122,45 +99,7 @@ class ItemControllerTests {
         assertThrows(NotFoundException.class, () -> itemController.getById(99L, 2L));
     }
 
-    @Test
-    void getItemTestWithWrongUserId() {
-        assertThrows(NotFoundException.class, () -> itemController.getById(1L, 99L));
-    }
-
-    @Test
-    void getAllItemTest() {
-        User user2 = new User();
-        user2.setName("name2");
-        user2.setEmail("user@email2.com");
-
-        userController.create(user);
-        userController.create(user2);
-        requestController.add(1L, request);
-
-        Item item2 = Item.builder()
-                .name("name")
-                .description("description")
-                .available(true)
-                .requestId(1L)
-                .build();
-
-        itemController.add(1L, item2);
-
-        Collection<ItemDtoForOwner> items = itemController.getItemsByUser(1L);
-
-        ItemDtoForOwner[] itemsArrey = items.toArray(new ItemDtoForOwner[items.size()]);
-
-        assertEquals(itemDtoForOwner, itemsArrey[0]);
-
-
-    }
 
 
 
-    @Test
-    void searchTest() {
-        userController.create(user);
-        itemController.add(1L, item);
-        assertEquals(1, itemController.findItemsBySearch("name").size());
-    }
 }

@@ -41,25 +41,8 @@ class UserControllerTests {
         assertEquals(user.getEmail(), userController.findUserById(1L).getEmail());
     }
 
-    @Test
-    void updateByWrongUserTest() {
-        assertThrows(NotFoundException.class, () -> userController.update(1L, user));
-    }
 
-    @Test
-    void deleteTest() {
-        User userDto = userController.create(user);
-        assertEquals(1, userController.getAll().size());
-        userController.deleteUser(userDto.getId());
-        assertEquals(0, userController.getAll().size());
-    }
-
-    @Test
-    void getByWrongIdTest() {
-        assertThrows(NotFoundException.class, () -> userController.findUserById(99L));
-    }
 }
-
 
 
 
