@@ -9,13 +9,15 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "ru.practicum.shareit")
+@EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "ru.practicum")
 @PropertySource(value = "classpath:application.properties")
 public class PersistenceConfig {
     private final Environment environment;
@@ -38,10 +40,10 @@ public class PersistenceConfig {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(environment.getRequiredProperty("jdbc.driverClassName"));
-        dataSource.setUrl(environment.getRequiredProperty("jdbc.url"));
-        dataSource.setUsername(environment.getRequiredProperty("jdbc.username"));
-        dataSource.setPassword(environment.getRequiredProperty("jdbc.password"));
+        dataSource.setDriverClassName(environment.getRequiredProperty("spring.datasource.driverClassName"));
+        dataSource.setUrl(environment.getRequiredProperty("spring.datasource.url"));
+        dataSource.setUsername(environment.getRequiredProperty("spring.datasource.username"));
+        dataSource.setPassword(environment.getRequiredProperty("spring.datasource.password"));
         return dataSource;
     }
 
@@ -49,7 +51,7 @@ public class PersistenceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
         final LocalContainerEntityManagerFactoryBean emf = new LocalContainerEntityManagerFactoryBean();
         emf.setDataSource(dataSource);
-        emf.setPackagesToScan("ru.practicum.shareit");
+        emf.setPackagesToScan("ru.practicum");
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         emf.setJpaVendorAdapter(vendorAdapter);

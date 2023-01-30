@@ -1,7 +1,6 @@
 package ru.practicum.shareit;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.commons.validator.routines.EmailValidator;
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.exceptions.NoEmailException;
 import ru.practicum.shareit.item.model.Item;
@@ -15,12 +14,7 @@ import ru.practicum.shareit.user.model.User;
 @RequiredArgsConstructor
 public class Validator {
 
-    public void validateIncorrectEmail(User user) {
-        EmailValidator validator = EmailValidator.getInstance();
-        if (!validator.isValid(user.getEmail())) {
-            throw new IncorrectEmailException("ошибка в написании электронной почты");
-        }
-    }
+
 
     public void validateNoEmail(User user) {
         if (user.getEmail() == null || user.getEmail().isBlank()) {

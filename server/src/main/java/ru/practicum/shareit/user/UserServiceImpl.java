@@ -21,7 +21,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         validator.validateNoEmail(user);
-        validator.validateIncorrectEmail(user);
         repository.save(user);
         return user;
     }
@@ -53,7 +52,6 @@ public class UserServiceImpl implements UserService {
         }
         if (user.getEmail() != null && user.getEmail() != updateUser.getEmail()) {
             validator.validateNoEmail(user);
-            validator.validateIncorrectEmail(user);
             updateUser.setEmail(user.getEmail());
         }
         if (user.getName() != null && user.getName() != updateUser.getName()) {
