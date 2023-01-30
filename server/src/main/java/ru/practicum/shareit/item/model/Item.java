@@ -28,7 +28,7 @@ public class Item {
     @Column(name = "is_available")
     private Boolean available;
 
-    @Column(name = "request_id", nullable = false)
+    @Column(name = "request_id")
     private Long requestId;
 
     @ManyToOne
