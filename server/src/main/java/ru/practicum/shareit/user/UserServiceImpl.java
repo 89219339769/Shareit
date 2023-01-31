@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exceptions.EmailWrongException;
 import ru.practicum.shareit.exceptions.NotFoundException;
 import ru.practicum.shareit.user.model.User;
-import ru.practicum.shareit.Validator;
 
 import java.util.List;
 
@@ -15,12 +14,11 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class UserServiceImpl implements UserService {
-    private final Validator validator;
+
     private final UserRepository repository;
 
     @Override
     public User saveUser(User user) {
-        validator.validateNoEmail(user);
         repository.save(user);
         return user;
     }
@@ -51,7 +49,6 @@ public class UserServiceImpl implements UserService {
             throw new EmailWrongException("адрес указанной обновляемой электронной почты уже сущетсвует ");
         }
         if (user.getEmail() != null && user.getEmail() != updateUser.getEmail()) {
-            validator.validateNoEmail(user);
             updateUser.setEmail(user.getEmail());
         }
         if (user.getName() != null && user.getName() != updateUser.getName()) {

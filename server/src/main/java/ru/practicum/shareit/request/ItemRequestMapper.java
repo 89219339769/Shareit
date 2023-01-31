@@ -16,12 +16,4 @@ public class ItemRequestMapper {
                 .items(itemsForRequest)
                 .build();
     }
-
-    public static RequestDtoForTest toItemRequestDtoForTest(RequestDto requestDto) {
-
-        return  RequestDtoForTest.builder()
-                .id(requestDto.getId())
-                .description(requestDto.getDescription())
-                .build();
-    }
 }

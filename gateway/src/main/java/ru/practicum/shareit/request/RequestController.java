@@ -3,6 +3,7 @@ package ru.practicum.shareit.request;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.exceptions.BadRequestException;
 
 import javax.validation.Valid;
 
@@ -29,6 +30,9 @@ public class RequestController {
     public ResponseEntity<Object> getAllWithItems(@RequestHeader("X-Sharer-User-Id") Long userId,
                                                   @RequestParam(defaultValue = "0") int from,
                                                   @RequestParam(defaultValue = "10") int size) {
+        if (from < 0 || size < 0) {
+            throw new BadRequestException(" параметр from и size не может быть отрицательным ");
+        }
         return requestClient.getAllRequestsWithItems(userId, from, size);
     }
 

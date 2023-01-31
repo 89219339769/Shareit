@@ -8,7 +8,6 @@ import ru.practicum.shareit.comment.CommentDtoOut;
 import ru.practicum.shareit.comment.CommentMapper;
 import ru.practicum.shareit.comment.CommentRepository;
 import ru.practicum.shareit.item.model.*;
-import ru.practicum.shareit.Validator;
 import ru.practicum.shareit.booking.BookingRepository;
 
 import ru.practicum.shareit.comment.Comment;
@@ -32,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
     private final CommentRepository commentRepository;
 
     private final RequestRepository requestRepository;
-    private final Validator validator;
+
     private final CommentMapper commentMapper;
 
     @Override
@@ -41,10 +40,6 @@ public class ItemServiceImpl implements ItemService {
                 .orElseThrow(() -> new NotFoundException("Невозможно создать вещь - " +
                         "не найден пользователь с id: " + userId));
         item.setOwner(user);
-        validator.validateItemEmptyDescription(item);
-        validator.validateItemEmptyName(item);
-        validator.validateItemWithOutEvailable(item);
-
 
         if (item.getRequestId() != null) {
             requestRepository.findById(item.getRequestId())

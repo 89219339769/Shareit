@@ -31,6 +31,9 @@ public class BookingController {
                                               @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
         BookingState state = BookingState.from(stateParam)
                 .orElseThrow(() -> new BadRequestException("Unknown state: " + stateParam));
+        if (from < 0 || size < 0) {
+            throw new BadRequestException(" араметры from и size не могут быть отрицательными ");
+        }
         log.info("Get booking with state {}, userId={}, from={}, size={}", stateParam, userId, from, size);
         return bookingClient.getBookings(userId, state, from, size);
     }
@@ -62,6 +65,9 @@ public class BookingController {
                                                 @RequestParam(defaultValue = "ALL") String state,
                                                 @RequestParam(defaultValue = "0") int from,
                                                 @RequestParam(defaultValue = "10") int size) {
+        if (from < 0 || size < 0) {
+            throw new BadRequestException(" параметр from и size не может быть отрицательным ");
+        }
         return bookingClient.getAllBokingsByOwnerSortByState(userId, state, from, size);
     }
 

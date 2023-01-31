@@ -44,7 +44,7 @@ public class BookingServiceImpl implements BookingService {
                     "пользователь не может забронировать принадлежащую ему вещь");
         }
 
-        if (item.getAvailable() == false) {
+        if (!item.getAvailable()) {
             throw new ItemUnvailableException("Вещь недоступна");
         }
 
@@ -109,9 +109,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<Booking> getAllBokingsSortByState(Long userId, String state, int from, int size) {
-        if (from < 0 || size < 0) {
-            throw new BadRequestException(" араметры from и size не могут быть отрицательными ");
-        }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Не найден бронирующий с номером: " + userId));
         List<Booking> allBookings = new ArrayList<>();
@@ -147,9 +144,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<Booking> getAllBokingsByOwnerSortByState(Long userId, String state, int from, int size) {
-        if (from < 0 || size < 0) {
-            throw new BadRequestException(" параметр from и size не может быть отрицательным ");
-        }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException("Не найден бронирующий с номером: " + userId));
         List<Booking> allBookings = new ArrayList<>();
