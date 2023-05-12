@@ -27,7 +27,6 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDtoOut addComment(Long userId, Long itemId, Comment comment) {
-
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NotFoundException("Невозможно найти вещь с id: " + itemId));
         User user = userRepository.findById(userId)
